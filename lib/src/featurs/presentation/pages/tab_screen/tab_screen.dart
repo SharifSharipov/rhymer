@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rhymer/src/featurs/presentation/cubits/tab_cubit/tab_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:rhymer/src/featurs/presentation/pages/home_screen/home_screen.da
 import 'package:rhymer/src/featurs/presentation/pages/save_screen/save_screen.dart';
 import 'package:rhymer/src/featurs/presentation/pages/settings_screen/settinhs_screen.dart';
 
+@RoutePage()
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
 
@@ -17,10 +19,10 @@ class _TabScreenState extends State<TabScreen> {
   static List<Widget> screens = [];
   @override
   void initState() {
-    screens = const[
+    screens = const [
       HomeScreen(),
       FavoriteScreen(),
-      SaveScreen(),
+      PoemsScreen(),
       SettingScreen(),
     ];
     super.initState();
@@ -38,7 +40,7 @@ class _TabScreenState extends State<TabScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Поиск"),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: "Избраное"),
-          BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Стихи"),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: "история"),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: "Настройки"),
         ],
@@ -48,7 +50,6 @@ class _TabScreenState extends State<TabScreen> {
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Theme.of(context).hintColor,
         type: BottomNavigationBarType.fixed,
-    
       ),
     );
   }

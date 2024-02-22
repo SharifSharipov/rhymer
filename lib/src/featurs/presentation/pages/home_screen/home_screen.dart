@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:rhymer/src/featurs/widgets/carusel_rhymer.dart';
+import 'package:rhymer/src/featurs/widgets/rhyme_list_card.dart';
 
 import 'widget/base_container/base_conatiner.dart';
-
+@RoutePage()
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -76,85 +79,23 @@ class _HomeScreenState extends State<HomeScreen>
           SliverToBoxAdapter(
               child: SizedBox(
             height: 100,
-            child: ListView.separated(
-              padding: const EdgeInsets.only(left: 16),
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                final rhymes=List.generate(4, (index) => "Рифма $index");
-                return BaseContainer(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Слово,",
-                        style: theme.textTheme.bodyLarge
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      Wrap(
-                        children:rhymes.map((e) => Padding(
-                                  padding: EdgeInsets.only(left: 4),
-                                  child: Text(e),
-                                ))
-                            .toList(),
-                      )
-                    ],
-                  ),
-                  width: 200,
-                  margin: EdgeInsets.zero,
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 16,
-              ),
-            ),
+            child: CaruselRhymer(theme),
           )),
           SliverPadding(
             padding: const EdgeInsets.only(top: 16),
             sliver: SliverList.builder(
                 itemBuilder: (BuildContext context, int index) {
-              return RhymerListCard(theme: theme);
+              return RhymerListCard(isSelected: false, rhym: 'Рифма',);
             }),
           )
         ],
       ),
     );
   }
+
 }
 
-class RhymerListCard extends StatelessWidget {
-  const RhymerListCard({
-    super.key,
-    required this.theme,
-  });
 
-  final ThemeData theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseContainer(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "Рифм",
-            style: theme.textTheme.bodyLarge,
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite,
-                color: theme.hintColor.withOpacity(0.3),
-              ))
-        ],
-      ),
-    );
-  }
-}
 
 class SearchButton extends StatelessWidget {
   const SearchButton({
